@@ -2,12 +2,12 @@ import { CheckIcon } from "@chakra-ui/icons";
 import { ListIcon, ListItem } from "@chakra-ui/react";
 import React from "react";
 
-const FeatureList = ({ users, description }) => {
+const FeatureList = ({ limitUsers, description }) => {
   return (
     <>
       <ListItem>
         <ListIcon as={CheckIcon} color='green.400' />
-        {users} identified users
+        {limitUsers} identified users
       </ListItem>
       <ListItem>
         <ListIcon as={CheckIcon} color='green.400' />
