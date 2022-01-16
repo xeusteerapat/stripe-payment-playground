@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const stripe = require("./services/stripe");
-
 const handleError = require("./middleware/handleError");
 
 const app = express();
@@ -24,7 +23,6 @@ app.get("/plans", async (req, res, next) => {
 
 app.post("/create-checkout-session", async (req, res, next) => {
   try {
-    console.log(req.body);
     const { priceId, quantity } = req.body;
 
     const session = await stripe.checkout.sessions.create({
@@ -35,13 +33,13 @@ app.post("/create-checkout-session", async (req, res, next) => {
           quantity,
         },
       ],
-      success_url: "http://localhost:3000",
-      cancel_url: "http://localhost:3000",
+      success_url: "http://localhost:3000/success",
+      cancel_url: "http://localhost:3000/cancel",
     });
 
-    console.log(session);
-
-    return res.redirect(303, session.url);
+    res.send({
+      url: session.url,
+    });
   } catch (error) {
     handleError(error, req, res, next);
   }
