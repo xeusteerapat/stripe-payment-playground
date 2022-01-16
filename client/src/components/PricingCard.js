@@ -9,16 +9,25 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import FeatureList from "./FeatureList";
+import axios from "axios";
 
 export default function PricingCard({
   name,
   priceId,
   price,
-  users,
+  limitUsers,
   description,
 }) {
-  const handleSelectPlan = () => {
-    console.log({ name, priceId, price, users });
+  const handleSelectPlan = async () => {
+    const res = await axios.post(
+      "http://localhost:5001/create-checkout-session",
+      {
+        priceId,
+        quantity: limitUsers,
+      }
+    );
+
+    console.log(res);
   };
 
   return (
@@ -59,7 +68,7 @@ export default function PricingCard({
 
         <Box bg={useColorModeValue("gray.50", "gray.900")} px={6} py={10}>
           <List spacing={3}>
-            <FeatureList users={users} description={description} />
+            <FeatureList limitUsers={limitUsers} description={description} />
           </List>
           <Button
             mt={10}
