@@ -4,14 +4,12 @@ import {
   Text,
   Stack,
   List,
-  ListItem,
-  ListIcon,
   Button,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { CheckIcon } from "@chakra-ui/icons";
+import FeatureList from "./FeatureList";
 
-export default function PricingCard() {
+export default function PricingCard({ id, name, price, list }) {
   return (
     <Center py={6}>
       <Box
@@ -37,12 +35,12 @@ export default function PricingCard() {
             color={"green.500"}
             rounded={"full"}
           >
-            Hobby
+            {name}
           </Text>
           <Stack direction={"row"} align={"center"} justify={"center"}>
             <Text fontSize={"3xl"}>$</Text>
             <Text fontSize={"6xl"} fontWeight={800}>
-              79
+              {price}
             </Text>
             <Text color={"gray.500"}>/month</Text>
           </Stack>
@@ -50,22 +48,14 @@ export default function PricingCard() {
 
         <Box bg={useColorModeValue("gray.50", "gray.900")} px={6} py={10}>
           <List spacing={3}>
-            <ListItem>
-              <ListIcon as={CheckIcon} color='green.400' />
-              5.000 page views
-            </ListItem>
-            <ListItem>
-              <ListIcon as={CheckIcon} color='green.400' />
-              50 automation executions
-            </ListItem>
-            <ListItem>
-              <ListIcon as={CheckIcon} color='green.400' />
-              50 identified users
-            </ListItem>
-            <ListItem>
-              <ListIcon as={CheckIcon} color='green.400' />
-              All features
-            </ListItem>
+            {list.map(item => (
+              <FeatureList
+                key={item.listId}
+                users={item.users}
+                features={item.features}
+                note={item.note}
+              />
+            ))}
           </List>
 
           <Button
