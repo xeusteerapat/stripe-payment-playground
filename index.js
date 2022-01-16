@@ -23,14 +23,21 @@ app.get("/plans", async (req, res, next) => {
 
 app.post("/create-checkout-session", async (req, res, next) => {
   try {
-    const { priceId, quantity } = req.body;
+    const { price, quantity, product } = req.body;
 
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",
       line_items: [
         {
-          price: priceId,
           quantity,
+          price_data: {
+            product: product.id,
+            currency: "GBP",
+            unit_amount: price,
+            recurring: {
+              interval: "month",
+            },
+          },
         },
       ],
       success_url: "http://localhost:3000/success",
