@@ -5,7 +5,6 @@ import axios from "axios";
 
 function App() {
   const [realPlans, setRealPlan] = useState([]);
-  console.log(realPlans);
 
   React.useEffect(() => {
     const fetchPlans = async () => {
@@ -37,7 +36,7 @@ function App() {
               priceId={plan.id}
               name={plan.product.name}
               price={plan.unit_amount}
-              users={plan.transform_quantity.divide_by}
+              limitUsers={plan.transform_quantity.divide_by}
               description={plan.product.description}
             />
           ))
