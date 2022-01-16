@@ -1,10 +1,23 @@
+import { Text, Button, VStack, Box } from "@chakra-ui/react";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Cancel = () => {
   return (
-    <div>
-      <h1>Cancel</h1>
-    </div>
+    <>
+      <VStack>
+        <Box>
+          <Text fontSize='4xl'>Cancel Payment</Text>
+        </Box>
+      </VStack>
+      <VStack>
+        <Link to='/'>
+          <Box>
+            <Button>Back Home</Button>
+          </Box>
+        </Link>
+      </VStack>
+    </>
   );
 };
 

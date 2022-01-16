@@ -8,6 +8,7 @@ import {
   Button,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 import FeatureList from "./FeatureList";
 import axios from "axios";
 
@@ -18,8 +19,10 @@ export default function PricingCard({
   limitUsers,
   description,
 }) {
+  let navigate = useNavigate();
+
   const handleSelectPlan = async () => {
-    const res = await axios.post(
+    const { data } = await axios.post(
       "http://localhost:5001/create-checkout-session",
       {
         priceId,
@@ -27,7 +30,14 @@ export default function PricingCard({
       }
     );
 
-    console.log(res);
+    // Actually, you don't extra component. Just redirect to target url.
+    // window.location.href = data.url;
+
+    navigate("/checkout", {
+      state: {
+        url: data.url,
+      },
+    });
   };
 
   return (

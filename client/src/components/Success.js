@@ -1,10 +1,23 @@
+import { Box, Button, Text, VStack } from "@chakra-ui/react";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Success = () => {
   return (
-    <div>
-      <h1>Payment Success</h1>
-    </div>
+    <>
+      <VStack>
+        <Box>
+          <Text fontSize='4xl'>Payment Success</Text>
+        </Box>
+      </VStack>
+      <VStack>
+        <Link to='/'>
+          <Box>
+            <Button>Back Home</Button>
+          </Box>
+        </Link>
+      </VStack>
+    </>
   );
 };
 
