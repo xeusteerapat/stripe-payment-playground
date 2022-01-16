@@ -38,6 +38,7 @@ function App() {
               price={plan.unit_amount}
               limitUsers={plan.transform_quantity.divide_by}
               description={plan.product.description}
+              product={plan.product}
             />
           ))
         )}

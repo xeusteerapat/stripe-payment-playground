@@ -18,6 +18,7 @@ export default function PricingCard({
   price,
   limitUsers,
   description,
+  product,
 }) {
   let navigate = useNavigate();
 
@@ -27,6 +28,8 @@ export default function PricingCard({
       {
         priceId,
         quantity: limitUsers,
+        product,
+        price,
       }
     );
 
