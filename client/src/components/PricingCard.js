@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Box,
   Center,
@@ -9,7 +10,17 @@ import {
 } from "@chakra-ui/react";
 import FeatureList from "./FeatureList";
 
-export default function PricingCard({ id, name, price, list }) {
+export default function PricingCard({
+  name,
+  priceId,
+  price,
+  users,
+  description,
+}) {
+  const handleSelectPlan = () => {
+    console.log({ name, priceId, price, users });
+  };
+
   return (
     <Center py={6}>
       <Box
@@ -40,7 +51,7 @@ export default function PricingCard({ id, name, price, list }) {
           <Stack direction={"row"} align={"center"} justify={"center"}>
             <Text fontSize={"3xl"}>$</Text>
             <Text fontSize={"6xl"} fontWeight={800}>
-              {price}
+              {price / 100}
             </Text>
             <Text color={"gray.500"}>/month</Text>
           </Stack>
@@ -48,16 +59,8 @@ export default function PricingCard({ id, name, price, list }) {
 
         <Box bg={useColorModeValue("gray.50", "gray.900")} px={6} py={10}>
           <List spacing={3}>
-            {list.map(item => (
-              <FeatureList
-                key={item.listId}
-                users={item.users}
-                features={item.features}
-                note={item.note}
-              />
-            ))}
+            <FeatureList users={users} description={description} />
           </List>
-
           <Button
             mt={10}
             w={"full"}
@@ -71,8 +74,9 @@ export default function PricingCard({ id, name, price, list }) {
             _focus={{
               bg: "green.500",
             }}
+            onClick={handleSelectPlan}
           >
-            Start your trial
+            Select Plan
           </Button>
         </Box>
       </Box>

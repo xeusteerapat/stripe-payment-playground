@@ -1,65 +1,47 @@
 import React, { useState } from "react";
-import { Flex, Container } from "@chakra-ui/react";
+import { Flex, Container, Spinner } from "@chakra-ui/react";
 import PricingCard from "./components/PricingCard";
-import { uid } from "./libs/uid";
-
-const planDetails = [
-  {
-    id: uid(),
-    name: "Free",
-    price: 0,
-    list: [
-      {
-        listId: uid(),
-        users: 10,
-        features: "Basic Dashboard",
-        note: "Basic features",
-      },
-    ],
-  },
-  {
-    id: uid(),
-    name: "Business",
-    price: 3,
-    list: [
-      {
-        listId: uid(),
-        users: 1000,
-        features: "Basic Dashboard",
-        note: "All features",
-      },
-    ],
-  },
-  {
-    id: uid(),
-    name: "Premium",
-    price: 10,
-    list: [
-      {
-        listId: uid(),
-        users: 10000,
-        features: "Advanced Dashboard",
-        note: "All features",
-      },
-    ],
-  },
-];
+import axios from "axios";
 
 function App() {
-  const [plans] = useState(planDetails);
+  const [realPlans, setRealPlan] = useState([]);
+  console.log(realPlans);
+
+  React.useEffect(() => {
+    const fetchPlans = async () => {
+      const { data } = await axios.get("http://localhost:5001/plans");
+
+      setRealPlan(data);
+    };
+
+    fetchPlans();
+  }, []);
 
   return (
     <Container maxW='container.lg'>
       <Flex justifyContent='space-between'>
-        {plans.map(plan => (
-          <PricingCard
-            key={plan.id}
-            id={plan.id}
-            name={plan.name}
-            price={plan.price}
-            list={plan.list}
-          />
-        ))}
+        {!realPlans.length ? (
+          <>
+            <Spinner
+              thickness='4px'
+              speed='0.65s'
+              emptyColor='gray.200'
+              color='blue.500'
+              size='xl'
+            />
+          </>
+        ) : (
+          realPlans.map(plan => (
+            <PricingCard
+              key={plan.id}
+              priceId={plan.id}
+              name={plan.product.name}
+              price={plan.unit_amount}
+              users={plan.transform_quantity.divide_by}
+              description={plan.product.description}
+            />
+          ))
+        )}
       </Flex>
     </Container>
   );
