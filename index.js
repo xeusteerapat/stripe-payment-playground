@@ -29,6 +29,7 @@ app.post("/create-checkout-session", async (req, res, next) => {
       mode: "subscription",
       billing_address_collection: "required",
       allow_promotion_codes: true,
+      locale: "en-GB",
       line_items: [
         {
           quantity,
